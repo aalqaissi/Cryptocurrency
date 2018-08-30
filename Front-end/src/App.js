@@ -12,53 +12,70 @@ class App extends Component {
     addressFrom: ''
   };
   componentDidMount() {
-    const owner =  "FILL_ME_IN";        // change this line with your current address;
+    const owner =  "0x015bb7051E59239E989bb9BD9019B4aF3f42FE75";        // change this line with your current address;
     
     this.setState({ owner });
   }
 
   getTokens = async event => {
     event.preventDefault();
-    const accounts = await // your code here;
+    const accounts = await web3.eth.getAccounts();
     this.setState({ message: 'Waiting on transaction success...' });
-    await // your code here;
+    await token.methods.getTokens().send({
+      from: accounts[0],
+      value: this.state.value
+    });
     this.setState({ message: 'You got your tokens!' });
   };
   tokenBalance = async event => { 
     event.preventDefault();
-    const accounts = await // your code here;
+    const accounts = await web3.eth.getAccounts();
     console.log(typeof accounts[0],  accounts[0]);
     this.setState({ message: 'Waiting on transaction success...' });
-    let result = await // your code here;
-console.log(result)
+
+    let result = await token.methods
+      .getBalance()
+      .call({ from: this.state.address }, function(error, result) {
+        if (!error) {
+          console.log(result);
+        } else {
+          console.log(error);
+          return error;
+        }
+      });
+      
+    console.log(result)
     this.setState({ message: result });
   };
   transfer = async event => {
     event.preventDefault();
-    const accounts = await // your code here;
+    const accounts = await web3.eth.getAccounts();
     this.setState({ message: 'Waiting on transaction success...' });
-     await // your code here;
+    await token.methods.transfer(this.state.address,this.state.value).send ({
+      from: accounts[0]
+    });
+
     this.setState({ message: "transaction has been entered" });
   };
   transferFrom = async event => {
     event.preventDefault();
-    const accounts = await // your code here;
+    const accounts = await web3.eth.getAccounts();
     this.setState({ message: 'Waiting on transaction success...' });
-     await // your code here;
+    // await // your code here;
     this.setState({ message: "transaction has been entered" });
   };
   approve = async event => {
     event.preventDefault();
-    const accounts = await // your code here;
+    const accounts = await web3.eth.getAccounts();
     this.setState({ message: 'Waiting on transaction success...' });
-     await // your code here;
+    // await // your code here;
     this.setState({ message: "transaction has been entered" });
   };
   getEthers= async event => {
    event.preventDefault();
-   const accounts = await // your code here;
+   const accounts = await web3.eth.getAccounts();
    this.setState({ message: 'Waiting on transaction success...' });
-   await // your code here;
+   //await // your code here;
    this.setState({ message: 'You sold your tokens!' });
   };
 
