@@ -23,5 +23,7 @@ contract Interface {
     /// @param _value The amount of tokens to be approved for transfer
     function approve(address _spender, uint256 _value) public ;
 
+    event Transfer(address indexed from, address indexed to, uint tokens);
+    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 
 }
